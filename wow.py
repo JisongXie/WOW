@@ -1,3 +1,15 @@
+# -*- coding:utf-8 -*-
+
+# -----------------------------------------------------------------------------
+# python code of WOW algorithm(Steganography)
+# -----------------------------------------------------------------------------
+# Accoring to: http://dde.binghamton.edu/download/stego_algorithms/
+# -----------------------------------------------------------------------------
+# Publication: [1] Designing Steganographic Distortion Using Directional Filters, 
+# V. Holub and J. Fridrich, to be presented at WIFS_12 IEEE International 
+# Workshop on Information Forensics and Security
+# -----------------------------------------------------------------------------
+
 import time
 import numpy as np
 from PIL import Image
@@ -6,7 +18,7 @@ from scipy.signal import convolve2d
 
 
 def WOW(cover, payload, params):
-    # Input:  coverPath ... path to the image
+    # Input:  cover ... image
     #         payload ..... payload in bits per pixel
     # Output: stego ....... resulting image with embedded payload
 
@@ -143,9 +155,9 @@ def ternary_entropyf(pP1, pM1):
 
 
 if __name__ == '__main__':
-    img_path = 'nijq.jpg'
-    payload = 0.4
-    params = -1         # holder norm parameter
+    img_path = 'nijq.jpg'       # image path
+    payload = 0.4               # payload(bits per pixel)
+    params = -1                 # holder norm parameter
     
     cover = Image.open(img_path)
     if cover.mode == 'RGB':
@@ -154,8 +166,8 @@ if __name__ == '__main__':
     stego, distortion = WOW(cover, payload, params)
 
     residual = (stego - cover.astype('float64') + 1)/2
-    print(residual)
-    
+    # print(residual)
+
     plt.subplot(121)
     plt.imshow(cover, cmap='gray')
     plt.subplot(122)
